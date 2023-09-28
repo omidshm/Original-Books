@@ -1,14 +1,15 @@
 from django.db import models
 import uuid
-from core.models import AppUser
+from django.conf import settings
 
 class Customer(models.Model):
-    user = models.OneToOneField(AppUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     birth_date = models.DateField()
-    favourite_genre = models.CharField(max_length=255)
+    phone = models.CharField(max_length=15)
+    #favourite_collections = models.ManyToManyField('Collection', null=True, blank=True, on_delete=models.SET_NULL)
 
 class Product(models.Model):
-    category = models.ForeignKey('Category', on_delete=models.CASCADE)
+    category = models.ForeignKey('Category', related_name='products',on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -19,7 +20,7 @@ class ProductImage(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
-    featured_product = models.OneToOneField(Product, null=True, blank=True, on_delete=models.SET_NULL)
+    featured_product = models.ForeignKey(Product, related_name='+', null=True, blank=True, on_delete=models.SET_NULL)
 
 class ShoppingCart(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
