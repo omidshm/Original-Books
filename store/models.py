@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 from core.models import AppUser
 
 class Customer(models.Model):
