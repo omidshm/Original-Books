@@ -1,0 +1,103 @@
+classDiagram
+  class AppUser {
+    +id: Integer
+    username: String
+    email: String
+    phone: String
+  }
+
+  class Customer {
+    +id: Integer
+    birth_date: Date
+    favourite_genre: String
+  }
+
+  class Product {
+    +id: Integer
+    category: Category
+    name: String
+    description: Text
+    price: Decimal
+  }
+
+  class ProductImage {
+    +id: Integer
+    image: Image
+    product: Product
+  }
+
+  class Category {
+    +id: Integer
+    name: String
+    featured_product: Product
+  }
+
+  class ShoppingCart {
+    +id: UUID
+  }
+
+  class CartItem {
+    +id: Integer
+    cart: ShoppingCart
+    product: Product
+    quantity: Integer
+  }
+
+  class Order {
+    +id: Integer
+    customer: Customer
+    placed_at: DateTime
+    payment_status: String
+  }
+
+  class OrderItem {
+    +id: Integer
+    product: Product
+    order: Order
+    quantity: Integer
+  }
+
+  class Address {
+    +id: Integer
+    country: String
+    city: String
+    zipcode: String
+    customer: Customer
+    full_address: Text
+  }
+
+  class Book {
+    +isbn: String
+    title: String
+    author: String
+    publication_date: Date
+    pages_number: Integer
+    cover_type: String
+    paper_type: String
+    weight: Decimal
+    size_type: String
+  }
+
+  class BookItem {
+    +id: Integer
+    book: Book
+    content_type: ContentType
+    object_id: Integer
+    content_object: GenericForeignKey
+  }
+
+    AppUser <|-- Customer
+    Customer "1" o-- "*" Address
+    Customer "1" o-- "*" Order
+    Order "1" o-- "*" OrderItem
+    OrderItem "*" -- "1" Product
+    Customer "1" o-- "1" ShoppingCart
+    ShoppingCart "1" o-- "*" CartItem
+    CartItem "*" -- "1" Product
+    Product "1" o-- "*" ProductImage
+    Category "1" o-- "*" Product
+    Category "1" --o "0..1" Product: featured_product
+    Book <|-- Product
+    BookItem <|-- OrderItem
+
+
