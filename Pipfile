@@ -8,6 +8,9 @@ django = "4.2.x"
 django-debug-toolbar = "*"
 pillow = "*"
 mysqlclient = "*"
+djangorestframework = "*"
+djoser = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 
