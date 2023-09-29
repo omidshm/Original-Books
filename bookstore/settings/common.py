@@ -20,15 +20,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-a1afwr1p5wxne+(%i)puyn7-=_*s&z+zq!#$7ca$xbu!v9dw*x'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -82,19 +73,7 @@ INTERNAL_IPS = [
 WSGI_APPLICATION = 'bookstore.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bookstore',
-        'USER': 'root',
-        'PASSWORD': '1212',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
 
 
 # Password validation
