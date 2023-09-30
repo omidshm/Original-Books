@@ -16,14 +16,23 @@ class Product(models.Model):
     inventory = models.IntegerField()
     last_updated = models.DateTimeField(auto_now=True)
     category = models.ForeignKey('Category', related_name='products',on_delete=models.PROTECT)
+    
+    class Meta:
+        ordering = ['-last_updated']
 
 class ProductImage(models.Model):
     image = models.ImageField(upload_to='product_images/')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 class Category(models.Model):
-    name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
     featured_product = models.ForeignKey(Product, related_name='+', null=True, blank=True, on_delete=models.SET_NULL)
+    
+    def __str__(self) -> str:
+        return self.title
+    
+    class Meta:
+        ordering = ['title']
 
 class ShoppingCart(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
