@@ -7,6 +7,9 @@ class Customer(models.Model):
     birth_date = models.DateField()
     phone = models.CharField(max_length=15)
     #favourite_collections = models.ManyToManyField('Collection', null=True, blank=True, on_delete=models.SET_NULL)
+    
+    def __str__(self) -> str:
+        return self.user.username
 
 class Product(models.Model):
     title = models.CharField(max_length=255)
@@ -17,6 +20,8 @@ class Product(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
     category = models.ForeignKey('Category', related_name='products',on_delete=models.PROTECT)
     
+    def __str__(self) -> str:
+        return self.title
     class Meta:
         ordering = ['-last_updated']
 
@@ -36,6 +41,7 @@ class Category(models.Model):
 
 class ShoppingCart(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 class CartItem(models.Model):
     cart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE)
